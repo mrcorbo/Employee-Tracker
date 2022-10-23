@@ -35,30 +35,37 @@ inquirer.
 
 function showDepartments(){
 
+    menu()
 }
 
 function showRoles(){
 
+    menu()
 }
 
 function showEmployees(){
-
+    
+    menu()
 }
 
 function addDepartment(){
-
+    
+    menu()
 }
 
 function addRole(){
 
+    menu()
 }
 
 function addEmployee(){
 
+    menu()
 }
 
 function updateRole(){
 
+    menu()
 }
 
 // View all departments
