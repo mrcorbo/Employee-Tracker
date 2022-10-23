@@ -7,7 +7,7 @@ inquirer.
         {
             type: 'list',
             message: `What would you like to do?`,
-            choices: ['View all departments', 'View all roles', 'View all employees', 'Add a department', 'Add a role', 'Add an employee', `Update an employee's role`, 'Save & exit']
+            choices: ['View all departments', 'View all roles', 'View all employees', 'Add a department', 'Add a role', 'Add an employee', `Update an employee's role`, 'Save & exit'],
             name: 'menu'
         },
 
@@ -24,7 +24,7 @@ inquirer.
             addRole()
         }else if (data.menu === 'Add an employee'){
             addEmployee()
-        }else if (data.menu === .`Update an employee's role`){
+        }else if (data.menu === `Update an employee's role`){
             updateRole()
         }else {
         //   Save & Exit
@@ -33,27 +33,34 @@ inquirer.
     })
 }
 
-showDepartments(){
+function showDepartments(){
 
 }
-showRoles(){
+
+function showRoles(){
 
 }
-showEmployees(){
+
+function showEmployees(){
 
 }
-addDepartment(){
+
+function addDepartment(){
 
 }
-addRole(){
+
+function addRole(){
 
 }
-addEmployee(){
+
+function addEmployee(){
 
 }
-updateRole(){
+
+function updateRole(){
 
 }
+
 // View all departments
 // View all roles
     // Job Title, Role ID, Department, Salary
