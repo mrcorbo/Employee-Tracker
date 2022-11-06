@@ -1,5 +1,16 @@
-const fs = require('fs')
 const inquirer = require('inquirer')
+const mysql = require ('mysql2')
+const { map } = require('rxjs')
+require('dotenv').config();
+
+const db = mysql.createConnection(
+    {
+     host: process.env.host,
+     user: process.env.user,
+     password: process.env.password,
+     database: process.env.database    
+    }
+)
 
 function menu(){
 inquirer.
@@ -27,47 +38,107 @@ inquirer.
         }else if (data.menu === `Update an employee's role`){
             updateRole()
         }else {
-        //   Save & Exit
+            process.exit()
         }
 
     })
 }
 
 function showDepartments(){
-
-    menu()
+    db.query("SELECT * FROM department;", function (err, results) {
+        console.log(results)
+        returnToMenu()
+    })
+    
+    
 }
 
 function showRoles(){
-
-    menu()
+    db.query("SELECT * FROM roles;", function (err, results) {
+        console.log(results)
+    })
+    returnToMenu()
 }
 
 function showEmployees(){
-    
-    menu()
+    db.query("SELECT * FROM employees;", function (err, results) {
+        console.log(results)
+        returnToMenu()
+    })
 }
 
 function addDepartment(){
-    
-    menu()
+    inquirer.
+        prompt({
+            type: 'input',
+            message: 'Input name of new department.',
+            name : 'addDept'
+        }).then((data) => {
+            db.query("INSERT INTO department (depName) VALUES (?);", [data.addDept], function (err, results){
+                console.log(results)
+                returnToMenu()
+            })
+        })
 }
 
 function addRole(){
+    inquirer.
+        prompt([
+            {
+                type: 'input',
+                message: 'Input the name of the new role.',
+                name: 'newRole'
+            },
+            {
+                type: 'input',
+                message: 'Input the salary of the new role.',
+                name: 'newSalary'
+            },
+            {
+                type: 'list',
+            }
 
-    menu()
+
+        ])
+    returnToMenu()
 }
 
 function addEmployee(){
 
-    menu()
+    returnToMenu()
 }
 
 function updateRole(){
-
-    menu()
+    db.query('SELECT * FROM employees;', function (err, results) {
+    console.log(results)
+        
+    })
+    // inquirer.
+    //     prompt([
+    //         {
+    //             type: 'list'
+    //         }
+    //     ])
+    db.query("UPDATE employees SET role_id = ? WHERE id = ?;")
+    returnToMenu()
+        
 }
 
+function returnToMenu(){
+    inquirer.
+        prompt({
+            type: 'list',
+            message: 'Would you like to do more?',
+            choices: ['Yes', 'No'],
+            name: 'goAgain'
+        }).then((data) => {
+            if (data.goAgain === 'Yes'){
+                menu()
+            }else {process.exit()}
+        })
+        
+}
+menu()
 // View all departments
 // View all roles
     // Job Title, Role ID, Department, Salary
