@@ -110,7 +110,7 @@ function addRole(){
 
         ]).then((data) => {
             db.query('INSERT INTO roles (title, salary, department_id) VALUES (?,?,?)', [data.newRole, data.newSalary, data.deptRole], function (err, results){
-                console.log('Role has been added.')
+                console.log([data.newRole] + ' role has been added.')
                 returnToMenu()
             })
         }).catch((err) => {
